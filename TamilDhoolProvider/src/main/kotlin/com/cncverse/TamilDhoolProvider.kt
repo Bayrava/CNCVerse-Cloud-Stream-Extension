@@ -87,7 +87,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
         val doc = app.get(url).document
         val title = doc.selectFirst("h1.entry-title")?.text()?.trim()
             ?: return null
-        val posterRegex = Regex("(https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*jpg))")
+        val posterRegex = Regex("(https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*webl))")
         val posterRaw = doc.selectFirst("div.entry-cover")?.attr("style").toString()
         val poster = posterRegex.find(posterRaw)?.value?.trim()
 
