@@ -32,7 +32,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
     )
 
     override val mainPage = mainPageOf(
-        "zee-tamil" to "Zee Tamil TV",
+        "zee-tamil" to "Zee Tamil TV TEST",
         "sun-tv" to "Sun TV",
         "vijay-tv" to "Vijay TV",
         "kalaignar-tv" to "Kalaignar TV",
