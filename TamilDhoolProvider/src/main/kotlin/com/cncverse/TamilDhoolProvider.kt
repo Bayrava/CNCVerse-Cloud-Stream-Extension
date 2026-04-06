@@ -32,9 +32,9 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
     )
 
     override val mainPage = mainPageOf(
-        "zee-tamil" to "Zee Tamil TV TEST",
+        "zee-tamil" to "Zee Tamil TV",
         "sun-tv" to "Sun TV",
-        "vijay-tv" to "Vijay TV",
+        "vijay-tv" to "Vijay TV TEST",
         "kalaignar-tv" to "Kalaignar TV",
         "news-gossips" to "News Gossips TV",
     )
@@ -67,7 +67,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
     private fun Element.toSearchResult(): SearchResponse? {
         val title = this.selectFirst("section.entry-body > h3 > a")?.text()?.trim() ?: return null
         val href = fixUrl(this.selectFirst("section.entry-body > h3 > a")?.attr("href").toString())
-        val posterUrl = this.selectFirst("div.post-thumb img")?.attr("src")
+        val posterUrl = fixUrlNull(this.selectFirst("div.post-thumb > a > img")?.attr("src"))
         return newTvSeriesSearchResponse(title, href, TvType.TvSeries) {
             this.posterUrl = posterUrl
             this.posterHeaders = mapOf("referer" to "$mainUrl/")
@@ -89,7 +89,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
             ?: return null
         val posterRegex = Regex("(https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/\\/=]*jpg))")
         val posterRaw = doc.selectFirst("div.entry-cover")?.attr("style").toString()
-        val poster = "https://www.tamildhool.li/wp-content/uploads/2025/09/Kanmani-Anbudan.webp"
+        val poster = posterRegex.find(posterRaw)?.value?.trim()
 
         val linkElements = doc.select("div.entry-content link[rel=prefetch][href]")
         val link = linkElements.map {
