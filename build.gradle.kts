@@ -54,7 +54,7 @@ subprojects {
 
     cloudstream {
         setRepo(System.getenv("GITHUB_REPOSITORY") ?: "https://github.com/Bayrava/CNCVerse-Cloud-Stream-Extension")
-        authors = listOf("NivinCNC")
+        authors = listOf("Bayrava")
     }
 
     android {
