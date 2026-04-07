@@ -22,7 +22,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
         var context: android.content.Context? = null
     }
     
-    override var mainUrl = "https://www.tamildhool.li"
+    override var mainUrl = "https://www.tamildhool.tech"
     override var name = "TamilDhool"
     override val hasMainPage = true
     override var lang = "ta"
@@ -34,7 +34,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
     override val mainPage = mainPageOf(
         "zee-tamil" to "Zee Tamil TV",
         "sun-tv" to "Sun TV",
-        "vijay-tv" to "Vijay TV TEST",
+        "vijay-tv" to "Vijay TV",
         "kalaignar-tv" to "Kalaignar TV",
         "news-gossips" to "News Gossips TV",
     )
@@ -53,7 +53,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
         
         val query = request.data.format(page)
         val document = app.post(
-            "$mainUrl/category/$query/",
+            "$mainUrl/$query/",
             headers = mapOf("Content-Type" to "application/x-www-form-urlencoded; charset=UTF-8"),
             referer = "$mainUrl/"
         ).document
@@ -67,7 +67,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
     private fun Element.toSearchResult(): SearchResponse? {
         val title = this.selectFirst("section.entry-body > h3 > a")?.text()?.trim() ?: return null
         val href = fixUrl(this.selectFirst("section.entry-body > h3 > a")?.attr("href").toString())
-        val posterUrl = this.selectFirst("div.post-thumb > a > img")?.attr("src")
+        val posterUrl = this.selectFirst("div.post-thumb > a > picture > img")?.attr("src")
         return newTvSeriesSearchResponse(title, href, TvType.TvSeries) {
             this.posterUrl = posterUrl
             this.posterHeaders = mapOf("referer" to "$mainUrl/")
