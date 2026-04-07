@@ -67,8 +67,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
     private fun Element.toSearchResult(): SearchResponse? {
         val title = this.selectFirst("section.entry-body > h3 > a")?.text()?.trim() ?: return null
         val href = fixUrl(this.selectFirst("section.entry-body > h3 > a")?.attr("href").toString())
-        //val posterUrl = fixUrlNull(this.selectFirst("div.post-thumb > a > img")?.attr("src"))
-        val posterUrl = "https://www.tamildhool.li/wp-content/uploads/2026/04/cooku-with-comali-season-7-from-1.jpg-360x240.webp"
+        val posterUrl = this.selectFirst("div.post-thumb > a > img")?.attr("src")
         return newTvSeriesSearchResponse(title, href, TvType.TvSeries) {
             this.posterUrl = posterUrl
             this.posterHeaders = mapOf("referer" to "$mainUrl/")
