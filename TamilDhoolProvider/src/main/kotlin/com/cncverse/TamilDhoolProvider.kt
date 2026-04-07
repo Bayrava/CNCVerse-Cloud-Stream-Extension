@@ -53,7 +53,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
         
         val query = request.data.format(page)
         val document = app.post(
-            "$mainUrl/$query/",
+            "$mainUrl/category/$query/",
             headers = mapOf("Content-Type" to "application/x-www-form-urlencoded; charset=UTF-8"),
             referer = "$mainUrl/"
         ).document
