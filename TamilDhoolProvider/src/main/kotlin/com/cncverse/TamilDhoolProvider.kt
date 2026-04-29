@@ -96,7 +96,7 @@ class TamilDhoolProvider : MainAPI() { // all providers must be an instance of M
             var href = it.attr("href")
             if (href.startsWith("https://dai.ly/")) {
                 val id = href.removePrefix("https://dai.ly/")
-                href = "https://geo.dailymotion.com/player.html?video=$id&mute=false"
+                href = "https://www.dailymotion.com/embed/video$id&mute=false"
             }
             val sourceName = when {
             href.contains("thirai", true) -> "ThiraiOne"
